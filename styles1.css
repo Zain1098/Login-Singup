@@ -1,0 +1,238 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #202124;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    max-width: 900px;
+    height: auto;
+    background-color: black;
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+}
+
+.left-section, .right-section {
+    width: 100%;
+    text-align: center;
+}
+
+.left-section {
+    padding-bottom: 80px;
+}
+
+.right-section {
+    padding-top: 20px;
+}
+
+.logo a {
+    background-color: rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+    color: rgb(190, 163, 77);
+    cursor: pointer;
+    display: inline;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 40.8px;
+    padding: 5px 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.5s ease;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+p {
+    margin: 10px 0 20px;
+}
+
+.instructions {
+    font-size: 14px;
+    color: #9aa0a6;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.input-group input {
+    width: calc(100% - 20px);
+    padding: 12px 10px 10px 10px;
+    border: 2px solid #3c4043;
+    border-radius: 20px;
+    background-color: black;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: border 0.3s, padding-top 0.3s;
+}
+
+.input-group label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    background-color: black;
+    padding: 0 5px;
+    color: #9aa0a6;
+    pointer-events: none;
+    transition: all 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #8ab4f8;
+    padding-top: 20px;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+    top: -5px;
+    transform: translateY(0);
+    font-size: 12px;
+    color: #8ab4f8;
+}
+
+.input-group .condition {
+    font-size: 12px;
+    color: #9aa0a6;
+    position: absolute;
+    bottom: -18px;
+    left: 10px;
+}
+
+button {
+    width: 30%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #1a73e8;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #1558c7;
+}
+
+@media (min-width: 600px) {
+    .container {
+        flex-direction: row;
+        height: 70vh;
+    }
+
+    .left-section, .right-section {
+        width: 50%;
+    }
+
+    .left-section {
+        padding-right: 20px;
+        text-align: left;
+    }
+
+    .right-section {
+        padding-left: 20px;
+        text-align: left;
+    }
+
+    button {
+        width: auto;
+        margin-left: auto;
+        background-color: rgb(190, 163, 77);
+        float: right;
+    }
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.dropbtn {
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor:pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: black;
+    min-width: 160px;
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.dropdown-content a {
+    color: #1558c7;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 12px;
+}
+
+.dropdown-content a:hover {
+    background-color: rgb(190, 163, 77);
+    color: white;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #1558c7;
+}
+
+.dropdown p{
+    color: #1558c7;
+}
+
+.previous-button {
+    background-color: rgb(190, 163, 77); 
+    color: white; 
+    border: none;
+    border-radius: 4px; 
+    padding: 10px; 
+    cursor: pointer; 
+    margin-top: 20px;
+    margin-right: 10px; 
+    float: left; 
+    width: auto; /* Ensure the button width is not too large */
+}
+
+.previous-button:hover {
+    background-color: #1558c7; /* Darker gray on hover */
+}
+
+@media (max-width: 599px) {
+    .previous-button {
+        width: auto; /* Ensure the button width is not too large */
+        margin: 10px 0;
+        float: none; /* Remove float */
+    }
+}
+
