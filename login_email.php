@@ -34,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
                     <label for="email">Email</label>
                     <small class="condition">e.g. example@domain.com</small>
                 </div>
-                <a href="#">Forgot email?</a>
                 <button type="submit">Next</button>
             </form>
             <div class="footer">
@@ -42,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
                     <p>Create Account</p>
                     <div class="dropdown-content">
                         <a href="singup_user_name.php">Create User Account</a>
-                        <a href="singup_lawyer.php">Create Lawyer Account</a>
+                        <a href=".//Lawyer Singup/singup_law_name.php">Create Lawyer Account</a>
                     </div>
                 </div>
             </div>

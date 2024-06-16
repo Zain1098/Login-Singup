@@ -1,3 +1,5 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
 body {
     background-color: #202124;
     color: #E8EAED;
@@ -90,7 +92,7 @@ form {
 .input-group label {
     position: absolute;
     top: 50%;
-    left: 10px;
+    left: 30px;
     transform: translateY(-50%);
     background-color: black;
     padding: 0 5px;
@@ -229,4 +231,67 @@ button:hover {
         width: 100%;
         margin-top: 10px;
     }
+}
+
+.password-group {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.password-group input {
+    width: calc(100% - 40px); /* Adjust width to accommodate icon */
+    padding: 12px 10px;
+    padding-right: 40px; /* Add space for the icon */
+    border: 2px solid #3c4043;
+    border-radius: 20px;
+    background-color: black;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.password-group label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    background-color: black;
+    padding: 0 5px;
+    color: #9aa0a6;
+    pointer-events: none;
+    transition: all 0.3s;
+}
+
+.password-group input:focus {
+    border-color: #8ab4f8;
+}
+
+.password-group input:focus + label,
+.password-group input:not(:placeholder-shown) + label {
+    top: -5px;
+    transform: translateY(0);
+    font-size: 12px;
+    color: #8ab4f8;
+}
+
+.password-group .condition {
+    font-size: 12px;
+    color: #9aa0a6;
+    position: absolute;
+    bottom: -18px;
+    left: 10px;
+}
+
+.password-group .input-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer; /* Change cursor to pointer */
+}
+
+.password-group .input-icon i:hover {
+    color: #8ab4f8; /* Change color on hover */
 }
