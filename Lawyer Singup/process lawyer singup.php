@@ -1,6 +1,19 @@
 <?php
+include "..//conn.php";
 session_start();
-include '../conn.php';
+
+// Ensure required session variables are set
+$required_fields = [
+    'first-name', 'last-name', 'email', 'number', 'address', 'password',
+    'bar_council_number', 'practicing_since', 'specialization', 'description',
+    'degrees', 'universities', 'languages_spoken', 'availability', 'about-me', 'profile-image'
+];
+
+foreach ($required_fields as $field) {
+    if (!isset($_SESSION[$field])) {
+        die("Error: Missing required field $field.");
+    }
+}
 
 // Retrieve data from session
 $firstName = $_SESSION['first-name'];
@@ -18,24 +31,12 @@ $university = $_SESSION['universities'];
 $language = $_SESSION['languages_spoken'];
 $available = $_SESSION['availability'];
 $aboutMe = $_SESSION['about-me'];
+$image = $_SESSION['profile-image'];
 
-// Handle file upload
-$image = $_FILES['profile-image']['name'];
-$target_dir = "uploads/";
-$target_file = $target_dir . basename($image);
-
-// Check if the directory exists, if not create it
-if (!is_dir($target_dir)) {
-    mkdir($target_dir, 0777, true);
-}
-
-// Correct the path to the temporary file
-if (move_uploaded_file($_FILES['profile-image']['tmp_name'], $target_file)) {
-    echo "The file ". htmlspecialchars(basename($image)). " has been uploaded.";
-} else {
-    echo "Sorry, there was an error uploading your file.";
-    exit();
-}
+// Debugging: Print session variables
+echo "<pre>";
+print_r($_SESSION);
+echo "</pre>";
 
 // Prepare and bind
 $stmt = $conn->prepare("INSERT INTO lawyer (`name`, `last name`, `email`, `number`, `address`, `password`, `bar council`, `since`, `specialist`, `description`, `degree`, `university`, `language`, `available`, `image`, `about me`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");

@@ -1,63 +1,105 @@
 <?php
-include "..//conn.php";
 session_start();
+include '../conn.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $_SESSION['profile-image'] = $_FILES['profile-image']['name'];
-    $_SESSION['about-me'] = $_POST['about-me'];
-    header("Location: profile_summary.php");
-    exit();
-}
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Handle file upload
     $target_dir = "uploads/";
     $target_file = $target_dir . basename($_FILES["profile-image"]["name"]);
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-    // Check if image file is a actual image or fake image
+    // Validate the image
     $check = getimagesize($_FILES["profile-image"]["tmp_name"]);
-    if($check !== false) {
-        $uploadOk = 1;
-    } else {
-        echo "File is not an image.";
-        $uploadOk = 0;
+    if ($check === false) {
+        die("File is not an image.");
     }
 
-    // Check file size
+    // Validate file size
     if ($_FILES["profile-image"]["size"] > 500000) {
-        echo "Sorry, your file is too large.";
-        $uploadOk = 0;
+        die("Sorry, your file is too large.");
     }
 
-    // Allow certain file formats
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" 
-    && $imageFileType != "gif" ) {
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        $uploadOk = 0;
+    // Validate file format
+    $allowedFormats = ["jpg", "jpeg", "png", "gif"];
+    if (!in_array($imageFileType, $allowedFormats)) {
+        die("Sorry, only JPG, JPEG, PNG & GIF files are allowed.");
     }
 
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
-    // if everything is ok, try to upload file
-    } else {
-        if (move_uploaded_file($_FILES["profile-image"]["tmp_name"], $target_file)) {
-            $_SESSION['profile-image'] = basename($_FILES["profile-image"]["name"]);
-        } else {
-            echo "Sorry, there was an error uploading your file.";
+    // Upload the file
+    if (!move_uploaded_file($_FILES["profile-image"]["tmp_name"], $target_file)) {
+        die("Sorry, there was an error uploading your file.");
+    }
+
+    // Set session variables
+    $_SESSION['profile-image'] = basename($_FILES["profile-image"]["name"]);
+    $_SESSION['about-me'] = $_POST['about-me'];
+
+    // Ensure required session variables are set
+    $required_fields = [
+        'first-name', 'last-name', 'email', 'number', 'address', 'password',
+        'bar_council_number', 'practicing_since', 'specialization', 'description',
+        'degrees', 'universities', 'languages_spoken', 'availability', 'profile-image', 'about-me'
+    ];
+
+    foreach ($required_fields as $field) {
+        if (!isset($_SESSION[$field])) {
+            die("Error: Missing required field $field.");
         }
     }
-    
-}
 
+    // Retrieve data from session
+    $firstName = $_SESSION['first-name'];
+    $lastName = $_SESSION['last-name'];
+    $email = $_SESSION['email'];
+    $number = $_SESSION['number'];
+    $address = $_SESSION['address'];
+    $password = $_SESSION['password'];
+    $barCouncil = $_SESSION['bar_council_number'];
+    $since = $_SESSION['practicing_since'];
+    $specialist = $_SESSION['specialization'];
+    $description = $_SESSION['description'];
+    $degree = $_SESSION['degrees'];
+    $university = $_SESSION['universities'];
+    $language = $_SESSION['languages_spoken'];
+    $available = $_SESSION['availability'];
+    $image = $_SESSION['profile-image'];
+    $aboutMe = $_SESSION['about-me'];
+
+    // Prepare and bind
+    $stmt = $conn->prepare("INSERT INTO lawyer (`name`, `last name`, `email`, `number`, `address`, `password`, `bar council`, `since`, `specialist`, `description`, `degree`, `university`, `language`, `available`, `image`, `about me`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssssssssssss", $firstName, $lastName, $email, $number, $address, $password, $barCouncil, $since, $specialist, $description, $degree, $university, $language, $available, $image, $aboutMe);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    // Close the statement and connection
+    $stmt->close();
+    $conn->close();
+
+    // Clear session data
+    session_unset();
+    session_destroy();
+
+    // Redirect to a thank you page
+    header('Location: thank_you.php');
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account</title>
-    <link rel="stylesheet" href="..//styles1.css">
+    <link rel="stylesheet" href="../styles1.css">
 </head>
+
 <body>
     <div class="container">
         <div class="left-section">
@@ -69,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p class="instructions">Please upload a professional image and write a detailed description of your life and experience as a lawyer. Include information about your education, career achievements, and personal interests.</p>
         </div>
         <div class="right-section">
-            <form action="process lawyer singup.php" method="POST" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data">
                 <div class="input-group">
                     <input type="file" id="profile-image" name="profile-image" required>
                     <label for="profile-image">Profile Image</label>
@@ -80,9 +122,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <small class="condition">Describe your life and experience as a lawyer. Include details about your education, career achievements, and personal interests.</small>
                 </div>
                 <button type="button" class="previous-button" onclick="history.back()">Previous</button>
-                <button type="submit">Next</button>
+                <button type="submit">Finish</button>
             </form>
         </div>
     </div>
 </body>
+
 </html>

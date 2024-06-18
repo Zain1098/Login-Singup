@@ -22,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p class="instructions">Please enter your bar council membership number, the year you started practicing, select your specialization, and provide a brief description.</p>
         </div>
         <div class="right-section">
-            <form action="" method="POST">
+            <form method="POST">
                 <div class="input-group">
                     <input type="text" id="bar_council_number" name="bar_council_number" placeholder=" " required>
                     <label for="bar_council_number">Bar Council Membership Number</label>
@@ -59,13 +60,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <option value="" disabled selected>Select Specialization</option>
                         <?php
                         foreach ($specializations as $specialization) {
-                            echo '<option value="' . htmlspecialchars($specialization['$row']) . '">' . htmlspecialchars($specialization['category']) . '</option>';
+                            echo '<option value="' . htmlspecialchars($specialization['category']) . '">' . htmlspecialchars($specialization['category']) . '</option>';
                         }
                         ?>
                     </select>
                     <label for="specialization">Specialization</label>
                 </div>
-
                 <div class="description">
                     <textarea id="description" name="description" placeholder=" " required></textarea>
                     <label for="description">Description</label>

@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
             <div class="logo">
                 <a href="index.html">Law<span>firm.</span></a>
             </div>
-            <h2>Sign in to Lawfirm</h2>
+            <h2>Sign in to Lawfirm</h2> 
             <p>Use your Account</p>
             <form action="" method="POST">
                 <div class="input-group">

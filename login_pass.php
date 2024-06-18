@@ -1,6 +1,37 @@
+<?php
+include 'conn.php'; // Database connection
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['email']) && isset($_POST['password'])) {
+    $email = $_SESSION['email'];
+    $password = $_POST['password'];
+
+    // Check user table
+    $query_user = "SELECT * FROM user WHERE email='$email' AND password='$password'";
+    $result_user = mysqli_query($conn, $query_user);
+
+    if (mysqli_num_rows($result_user) == 1) {
+        $_SESSION['email'] = $email;
+        header('Location: user_dashboard.php'); // Redirect to user page
+        exit();
+    }
+
+    // Check lawyer table
+    $query_lawyer = "SELECT * FROM lawyer WHERE email='$email' AND password='$password'";
+    $result_lawyer = mysqli_query($conn, $query_lawyer);
+
+    if (mysqli_num_rows($result_lawyer) == 1) {
+        $_SESSION['email'] = $email;
+        header('Location: lawyer_dashboard.php'); // Redirect to lawyer page
+        exit();
+    }
+
+    $error = "Invalid email or password";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +49,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="container">
         <div class="card">
@@ -27,9 +57,9 @@
             </div>
             <h2>Sign in to Lawfirm</h2>
             <p>Use your Account</p>
-            <form action="process_login.php" method="POST">
+            <form action="" method="POST">
                 <div class="password-group <?php echo !empty($error) ? 'invalid' : ''; ?>">
-                    <input type="password" id="password" name="password" placeholder=" " required autofocus>
+                    <input type="password" id="password" name="password" placeholder="" required>
                     <label for="password">Password</label>
                     <span id="toggle-password" class="input-icon fa fa-eye"></span>
                 </div>
@@ -44,7 +74,7 @@
                     <p>Create Account</p>
                     <div class="dropdown-content">
                         <a href="signup_user_name.php">Create User Account</a>
-                        <a href="create_lawyer_account.php">Create Lawyer Account</a>
+                        <a href=".//Lawyer Singup/singup_law_name.php">Create Lawyer Account</a>
                     </div>
                 </div>
             </div>
@@ -70,7 +100,5 @@
             });
         });
     </script>
-
 </body>
-
 </html>

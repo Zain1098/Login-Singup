@@ -34,6 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .error {
             color: red;
         }
+
         .input-group {
             position: relative;
             width: 100%;
@@ -52,12 +54,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin: 0 auto;
             padding: 10px 0;
         }
+
         .input-group input {
             width: 100%;
             padding: 10px;
-            padding-right: 40px; /* Space for the icon */
+            padding-right: 40px;
+            /* Space for the icon */
             box-sizing: border-box;
         }
+
         .input-group label {
             position: absolute;
             top: 50%;
@@ -66,12 +71,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             pointer-events: none;
             transition: 0.2s;
         }
-        .input-group input:focus + label,
-        .input-group input:not(:placeholder-shown) + label {
+
+        .input-group input:focus+label,
+        .input-group input:not(:placeholder-shown)+label {
             top: 0;
             font-size: 12px;
             color: #666;
         }
+
         .input-group .input-icon {
             position: absolute;
             right: 10px;
@@ -81,6 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="card">
@@ -123,22 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 eyeIcon.classList.add('fa-eye');
             }
         }
-
-        $(document).ready(function() {
-            $('.input-icon').on('click', function() {
-                const inputField = $(this).siblings('input');
-                const inputType = inputField.attr('type');
-                const eyeIcon = $(this).find('i');
-
-                if (inputType === 'password') {
-                    inputField.attr('type', 'text');
-                    eyeIcon.removeClass('fa-eye').addClass('fa-eye-slash');
-                } else {
-                    inputField.attr('type', 'password');
-                    eyeIcon.removeClass('fa-eye-slash').addClass('fa-eye');
-                }
-            });
-        });
     </script>
 </body>
+
 </html>

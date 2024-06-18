@@ -73,6 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                     ?>
                 </div>
+                <button type="button" class="previous-button" onclick="history.back()">Previous</button>
                 <button type="submit">Next</button>
             </form>
         </div>
