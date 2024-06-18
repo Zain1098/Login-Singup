@@ -1,30 +1,28 @@
 <?php
-include "conn.php";
+include "..//conn.php";
 session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['first-name'] = $_POST['first-name'];
     $_SESSION['last-name'] = $_POST['last-name'];
-    header("Location: singup_user_email.php");
+    header("Location: singup_law_contact.php");
     exit();
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account</title>
-    <link rel="stylesheet" href="styles1.css">
+    <link rel="stylesheet" href="..//styles1.css">
 </head>
-
 <body>
     <div class="container">
         <div class="left-section">
             <div class="logo">
                 <a href="index.html">Law<span>firm.</span></a>
             </div>
-            <h1>Create a User Account</h1>
+            <h1>Create a Lawyer Account</h1>
             <p>Enter your name</p>
             <p class="instructions">Please enter your first and last name. Your first name is required while the last name is optional.</p>
         </div>
@@ -46,5 +44,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </body>
-
 </html>
